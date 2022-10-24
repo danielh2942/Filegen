@@ -86,7 +86,8 @@ func main() {
 
 	for _, arg := range args {
 		mFile := CreateFileFiller(arg)
-
+		
+		fmt.Println("Creating",mFile.FileName+".h")
 		headerFile, err := os.Create(mFile.FileName+".h")
 		if err != nil {
 			fmt.Println("ERROR:",err.Error())
@@ -95,6 +96,7 @@ func main() {
 		tHeader.Execute(headerFile,mFile)
 		headerFile.Close()
 
+		fmt.Println("Creating",mFile.FileName+".cpp")
 		cppFile, err := os.Create(mFile.FileName+".cpp")
 		if err != nil {
 			fmt.Println("ERROR:",err.Error())
