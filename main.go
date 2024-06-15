@@ -86,23 +86,28 @@ func main() {
 
 	for _, arg := range args {
 		mFile := CreateFileFiller(arg)
+		// Check if header file exists, don't overwrite if it does
+		if _, err := os.Stat(mFile.FileName+".h"); err != nil {	
+			fmt.Println("Creating",mFile.FileName+".h")
+			headerFile, err := os.Create(mFile.FileName+".h")
+			if err != nil {
+				fmt.Println("ERROR:",err.Error())
+				return
+			}
+			tHeader.Execute(headerFile,mFile)
+			headerFile.Close()
+		}
 		
-		fmt.Println("Creating",mFile.FileName+".h")
-		headerFile, err := os.Create(mFile.FileName+".h")
-		if err != nil {
-			fmt.Println("ERROR:",err.Error())
-			return
+		// Check if source file exists, don't overwrite if it does
+		if _, err := os.Stat(mFile.FileName+".cpp"); err != nil {
+			fmt.Println("Creating",mFile.FileName+".cpp")
+			cppFile, err := os.Create(mFile.FileName+".cpp")
+			if err != nil {
+				fmt.Println("ERROR:",err.Error())
+				return
+			}
+			tBody.Execute(cppFile,mFile)
+			cppFile.Close()
 		}
-		tHeader.Execute(headerFile,mFile)
-		headerFile.Close()
-
-		fmt.Println("Creating",mFile.FileName+".cpp")
-		cppFile, err := os.Create(mFile.FileName+".cpp")
-		if err != nil {
-			fmt.Println("ERROR:",err.Error())
-			return
-		}
-		tBody.Execute(cppFile,mFile)
-		cppFile.Close()
 	}
 }
