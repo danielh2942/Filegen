@@ -25,8 +25,6 @@ type FileFiller struct {
 func CreateFileFiller(fName string) FileFiller {
 
 	// Remove illegal characters from the filenames
-
-
 	re := regexp.MustCompile(`[\\ -.\/:*?\"<>|$?{}\[\]]`)
 	fName = re.ReplaceAllString(fName,"")
 	fName = strings.ToLower(fName)
@@ -67,7 +65,8 @@ func main() {
 #define {{.FileNameCaps}}_H_{{.UUID}} 1
 
 #endif // {{.FileNameCaps}}_H_{{.UUID}}
-	`
+
+`
 
 	const cpp = `/*
  * File:      {{.FileName}}.cpp
