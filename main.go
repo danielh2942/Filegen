@@ -60,9 +60,9 @@ func main() {
  * 
  * Copyright: {{.Year}} {{.AuthorName}} 
  */
-
 #ifndef {{.FileNameCaps}}_H_{{.UUID}}
 #define {{.FileNameCaps}}_H_{{.UUID}} 1
+#pragma once
 
 #endif // {{.FileNameCaps}}_H_{{.UUID}}
 
@@ -74,7 +74,6 @@ func main() {
  *
  * Copyright: {{.Year}} {{.AuthorName}}
  */
-
 #include "{{.FileName}}.h"
 
 `
